@@ -1,0 +1,1 @@
+This project is a rewrite of the game lemonade stand in Apple basic with the purposes to find some optimized strats. 

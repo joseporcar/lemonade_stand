@@ -1,3 +1,67 @@
+use std::io::stdin;
 fn main() {
-    println!("Hello, world!");
+    // put these in named variables when figured out
+    // decided to not implement resume game mechanich as I found it a bit useless other than for debugging reasons
+    // may add later: 14000 Segment for it 
+    let mut players:Vec<i32> = Vec::new(); //B(I)
+    let mut assets:Vec<f64> = Vec::new(); //A(I)
+
+    let price_threshhold = 10; //P9
+    let advertisement_price = 0.15; //S3
+    let s2 = 30; /// idk??? 
+    let initial_assets = 2.00; //A2
+    let c9 = 0.5; /// wtf :cry
+    let c2 = 1;  // helpme
+
+    print_intro();
+
+    // here would go the resume mechanic prompt as defined per gosub 12000
+    let people_playing = get_people_playing(); //N
+
+    for i in 0..people_playing {
+        players[i] = 0;
+        assets[i] = initial_assets;
+    }
+
+}
+
+fn get_people_playing() -> usize {
+    println!("How many people are going to play?");
+    let mut buff = String::new();
+    stdin().read_line(&mut buff).unwrap();
+    buff.trim().parse().unwrap()
+}
+
+fn print_intro() {
+    println!("HI!  WELCOME TO LEMONSVILLE, CALIFORNIA!
+    IN THIS SMALL TOWN, YOU ARE IN CHARGE OF
+    RUNNING YOUR OWN LEMONADE STAND. YOU CAN
+    COMPETE WITH AS MANY OTHER PEOPLE AS YOU
+    WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP
+    TO YOU (THE OTHER STANDS' SALES WILL NOT
+    AFFECT YOUR BUSINESS IN ANY WAY). IF YOU
+    MAKE THE MOST MONEY, YOU'RE THE WINNER!!");
+}
+
+fn print_instructions() {
+    println!("
+        TO MANAGE YOUR LEMONADE STAND, YOU WILL 
+        NEED TO MAKE THESE DECISIONS EVERY DAY: 
+        1. HOW MANY GLASSES OF LEMONADE TO MAKE    (ONLY ONE BATCH IS MADE EACH MORNING)
+        2. HOW MANY ADVERTISING SIGNS TO MAKE      (THE SIGNS COST FIFTEEN CENTS EACH)  
+        3. WHAT PRICE TO CHARGE FOR EACH GLASS  
+        YOU WILL BEGIN WITH $2.00 CASH (ASSETS).
+        BECAUSE YOUR MOTHER GAVE YOU SOME SUGAR,
+        YOUR COST TO MAKE LEMONADE IS TWO CENTS 
+        A GLASS (THIS MAY CHANGE IN THE FUTURE). 
+    
+        YOUR EXPENSES ARE THE SUM OF THE COST OF
+        THE LEMONADE AND THE COST OF THE SIGNS. 
+        YOUR PROFITS ARE THE DIFFERENCE BETWEEN 
+        THE INCOME FROM SALES AND YOUR EXPENSES.
+        THE NUMBER OF GLASSES YOU SELL EACH DAY 
+        DEPENDS ON THE PRICE YOU CHARGE, AND ON 
+        THE NUMBER OF ADVERTISING SIGNS YOU USE. 
+        KEEP TRACK OF YOUR ASSETS, BECAUSE YOU  
+        CAN'T SPEND MORE MONEY THAN YOU HAVE!")
 }
