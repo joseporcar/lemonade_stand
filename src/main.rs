@@ -1,22 +1,13 @@
 use std::{io::stdin, thread, time::Duration};
+use lemonade_stand::Game;
 fn main() {
     
-    // put these in named variables when figured out
     // decided to not implement resume game mechanich as I found it a bit useless other than for debugging reasons
     // may add later: 14000 Segment for it 
 
     let mut buff = String::new(); // this is not from og source code
 
-
-    let mut players:Vec<i32> = Vec::new(); //B(I)
-    let mut assets:Vec<f64> = Vec::new(); //A(I)
-
-    let price_threshhold = 10; //P9
-    let advertisement_price = 0.15; //S3
-    let s2 = 30; /// idk??? 
-    let initial_assets = 2.00; //A2
-    let c9 = 0.5; /// wtf :cry
-    let c2 = 1;  // helpme
+    let mut game = Game::new();
 
     // START OF GAME
     print_intro();
@@ -30,6 +21,7 @@ fn main() {
     // here would go resume mechanic logic 14000
 
 }
+
 
 fn get_people_playing(buff: &mut String) -> usize {
     println!("HOW MANY PEOPLE WILL BE PLAYING?");
