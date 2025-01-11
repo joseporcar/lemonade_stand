@@ -2,8 +2,8 @@ use std::{io::stdin, thread, time::Duration};
 pub struct Game {
     buff: String, // not from source code
 
-    players: Vec<i32>, //B(I)
-    assets: Vec<f64>, //A(I)
+    players: [i32;30], //B(I)
+    assets: [f64;30], //A(I)
 
     price_threshhold: i32, //P9
     advertisement_price: f64, //S3
@@ -11,14 +11,16 @@ pub struct Game {
     initial_assets: f64, //A2
     c9: f64, // wtf :cry
     c2: i32,  // helpme
+    day:i32, //D
+    weather: Weather,
 }
 impl Game {
     pub fn new() -> Game {
         Game {
             buff: String::new(),
             
-            players: Vec::new(), 
-            assets: Vec::new(),
+            players: [-1; 30], 
+            assets: [-1.; 30],
     
             price_threshhold: 10, 
             advertisement_price: 0.15, 
@@ -26,6 +28,8 @@ impl Game {
             initial_assets: 2.00, 
             c9: 0.5, 
             c2: 1,  
+            day: 0,
+            weather: Weather::Sunny,
         }
     }
     
@@ -44,8 +48,20 @@ impl Game {
         Self::new_business();
     }
 
-    pub fn weather_report() {
-        
+    pub fn weather_report(&mut self) {
+        self.get_weather();
+        self.weather.print();
+    }
+
+    fn get_weather(&mut self) {
+        let random_number = rand::random::<f32>();
+        if random_number < 0.6 || self.day < 3 {
+            self.weather = Weather::Sunny;
+        } else if random_number < 0.8 {
+            self.weather = Weather::Cloudy;
+        } else {
+            self.weather = Weather::Dry;
+        }
     }
 
     fn get_people_playing(buff: &mut String) -> usize {
@@ -96,4 +112,24 @@ impl Game {
         stdin().read_line(&mut String::new()).unwrap();
     }
     
+}
+
+enum Weather {
+    Sunny, //SC=2
+    Dry, //SC=7
+    Cloudy, //SC=10
+    Thunderstorm, //SC=5
+}
+impl Weather {
+    fn print(&self) {
+        println!("LEMONSVILLE WEATHER REPORT ");
+        match self {
+            Weather::Sunny => println!("SUNNY"),
+            Weather::Dry => println!("HOT AND DRY"),
+            Weather::Cloudy => println!("CLOUDY"),
+            Weather::Thunderstorm => println!("THUNDERSTORMS!"),
+        }
+        println!("\n\n");
+        thread::sleep(Duration::from_secs(1));
+    }
 }
