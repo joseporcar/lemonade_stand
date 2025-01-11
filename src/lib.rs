@@ -6,13 +6,15 @@ pub struct Game {
     assets: [f64;30], //A(I)
 
     price_threshhold: i32, //P9
-    advertisement_price: f64, //S3
+    advertisement_cost: f64, //S3
     s2: i32, // idk??? 
     initial_assets: f64, //A2
     c9: f64, // wtf :cry
     c2: i32,  // helpme
     day:i32, //D
+    r1: f64, //R1
     weather: Weather,
+    cost: f64,
 }
 impl Game {
     pub fn new() -> Game {
@@ -23,18 +25,19 @@ impl Game {
             assets: [-1.; 30],
     
             price_threshhold: 10, 
-            advertisement_price: 0.15, 
+            advertisement_cost: 0.15, 
             s2: 30,
             initial_assets: 2.00, 
             c9: 0.5, 
             c2: 1,  
             day: 0,
+            r1: 0.,
             weather: Weather::Sunny,
+            cost: 0.02,
         }
     }
     
     pub fn start(&mut self) {
-
         Self::print_intro();
         // here would go the resume mechanic prompt as defined per gosub 12000
         let people_playing = Self::get_people_playing(&mut self.buff); //N
@@ -51,6 +54,23 @@ impl Game {
     pub fn weather_report(&mut self) {
         self.get_weather();
         self.weather.print();
+    }
+
+    pub fn new_day(&mut self) {
+        self.day += 1;
+        self.cost = Self::cost_of_lemonade(self.day) as f64 * 0.01;
+        println!("ON DAY {}, THE COST OF LEMONADE IS ${}\n\n", self.day, self.cost);
+        self.r1 = 1.;
+
+        if self.day == 3 {
+            println!("YOUR MOTHER QUIT GIVING YOU FREE SUGAR");
+        } else if self.day == 7 {
+            println!("THE PRICE OF LEMONADE MIX JUST WENT UP");
+        }
+        
+        if self.day > 2 {
+            todo!()
+        }
     }
 
     fn get_weather(&mut self) {
@@ -112,6 +132,15 @@ impl Game {
         stdin().read_line(&mut String::new()).unwrap();
     }
     
+    fn cost_of_lemonade(day: i32) -> i32 {
+        if day > 6 {
+            5
+        } else if day > 2 {
+            4
+        } else {
+            2
+        }
+    }
 }
 
 enum Weather {
