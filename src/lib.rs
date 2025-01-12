@@ -13,6 +13,7 @@ pub struct Game {
     c2: i32,  // helpme
     day:i32, //D
     r1: f64, //R1
+    x1: i32, //X1
     weather: Weather,
     cost: f64,
 }
@@ -32,6 +33,7 @@ impl Game {
             c2: 1,  
             day: 0,
             r1: 0.,
+            x1: 0,
             weather: Weather::Sunny,
             cost: 0.02,
         }
@@ -69,7 +71,7 @@ impl Game {
         }
         
         if self.day > 2 {
-            todo!()
+            self.event_handler();
         }
     }
 
@@ -141,8 +143,26 @@ impl Game {
             2
         }
     }
+
+    fn event_handler(&mut self) {
+        if self.weather == Weather::Cloudy {
+            self.cloudy_weather();
+            // possible return
+        } else if self.weather == Weather::Dry {
+
+        }
+    }
+
+    fn cloudy_weather(&mut self) {
+        let chance_of_rain = 30. + (rand::random::<f64>() * 5.).floor() * 10.; //J
+        println!("THERE IS A {chance_of_rain}% CHANCE OF LIGHT RAIN, AND THE WEATHER IS COOLER TODAY");
+        self.r1 = 1. - chance_of_rain / 100.;
+        self.x1 = 1;
+    }
+
 }
 
+#[derive(PartialEq)]
 enum Weather {
     Sunny, //SC=2
     Dry, //SC=7
