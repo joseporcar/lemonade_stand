@@ -149,7 +149,8 @@ impl Game {
             self.cloudy_weather();
             return
         } else if self.weather == Weather::Dry {
-
+            self.dry_weather();
+            return
         }
     }
 
@@ -158,6 +159,11 @@ impl Game {
         println!("THERE IS A {chance_of_rain}% CHANCE OF LIGHT RAIN, AND THE WEATHER IS COOLER TODAY");
         self.r1 = 1. - chance_of_rain / 100.;
         self.x1 = 1;
+    }
+
+    fn dry_weather(&mut self) {
+        println!("A HEAT WAVE IS PREDICTED FOR TODAY!");
+        self.r1 = 2.;
     }
 
 }
