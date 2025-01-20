@@ -147,7 +147,7 @@ impl Game {
     fn event_handler(&mut self) {
         if self.weather == Weather::Cloudy {
             self.cloudy_weather();
-            // possible return
+            return
         } else if self.weather == Weather::Dry {
 
         }
