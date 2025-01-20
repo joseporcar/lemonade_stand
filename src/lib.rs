@@ -13,7 +13,6 @@ pub struct Game {
     c2: i32,  // helpme
     day:i32, //D
     r1: f64, //R1
-    x1: i32, //X1
     weather: Weather,
     cost: f64,
 }
@@ -33,7 +32,6 @@ impl Game {
             c2: 1,  
             day: 0,
             r1: 0.,
-            x1: 0,
             weather: Weather::Sunny,
             cost: 0.02,
         }
@@ -151,14 +149,13 @@ impl Game {
         } else if self.weather == Weather::Dry {
             self.dry_weather();
             return
-        }
+        } 
     }
 
     fn cloudy_weather(&mut self) {
         let chance_of_rain = 30. + (rand::random::<f64>() * 5.).floor() * 10.; //J
         println!("THERE IS A {chance_of_rain}% CHANCE OF LIGHT RAIN, AND THE WEATHER IS COOLER TODAY");
         self.r1 = 1. - chance_of_rain / 100.;
-        self.x1 = 1;
     }
 
     fn dry_weather(&mut self) {
