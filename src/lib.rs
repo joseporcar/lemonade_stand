@@ -13,6 +13,7 @@ pub struct Game {
     c2: i32,  // helpme
     day:i32, //D
     r1: f64, //R1
+    r2: bool, //R2 is a number in the source code but works as a bool
     weather: Weather,
     cost: f64,
 }
@@ -32,6 +33,7 @@ impl Game {
             c2: 1,  
             day: 0,
             r1: 0.,
+            r2: false,
             weather: Weather::Sunny,
             cost: 0.02,
         }
@@ -149,7 +151,9 @@ impl Game {
         } else if self.weather == Weather::Dry {
             self.dry_weather();
             return
-        } 
+        } else if rand::random::<f64>() < 0.25 {
+            self.no_traffic();
+        }
     }
 
     fn cloudy_weather(&mut self) {
@@ -161,6 +165,15 @@ impl Game {
     fn dry_weather(&mut self) {
         println!("A HEAT WAVE IS PREDICTED FOR TODAY!");
         self.r1 = 2.;
+    }
+
+    fn no_traffic(&mut self) {
+        println!("THE STREET DEPARTMENT IS WORKING TODAY.\nTHERE WILL BE NO TRAFFIC ON YOUR STREET");
+        if rand::random::<f64>() < 0.5 {
+            self.r1 = 0.1
+        } else {
+            self.r2 = true
+        }
     }
 
 }
