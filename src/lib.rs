@@ -53,12 +53,10 @@ impl Game {
         Self::new_business();
     }
 
-    pub fn weather_report(&mut self) {
+    pub fn new_day(&mut self) {
         self.get_weather();
         self.weather.print();
-    }
-
-    pub fn new_day(&mut self) {
+        
         self.day += 1;
         self.cost = Self::cost_of_lemonade(self.day) as f64 * 0.01;
         println!("ON DAY {}, THE COST OF LEMONADE IS ${}\n\n", self.day, self.cost);
