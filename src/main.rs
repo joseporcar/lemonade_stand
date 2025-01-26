@@ -8,7 +8,7 @@ fn main() {
     let mut game = Game::new();
 
     game.start();
-    game.new_day();
+    game.play();
 
 }
 

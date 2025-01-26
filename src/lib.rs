@@ -53,7 +53,12 @@ impl Game {
         Self::new_business();
     }
 
-    pub fn new_day(&mut self) {
+    pub fn play(&mut self) {
+        self.new_day();
+        self.play_day();
+    }
+
+    fn new_day(&mut self) {
         self.get_weather();
         self.weather.print();
         
@@ -71,6 +76,10 @@ impl Game {
         if self.day > 2 {
             self.event_handler();
         }
+    }
+
+    pub fn play_day(&mut self) {
+
     }
 
     fn get_weather(&mut self) {
